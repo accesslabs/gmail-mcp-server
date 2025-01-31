@@ -1,12 +1,13 @@
 {
-  "name": "gmail-mcp-server",
+  "name": "@accesslabs/gmail-mcp-server",
   "version": "1.0.0",
   "description": "MCP server for Gmail API integration",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/server.js",
   "scripts": {
-    "clean": "rm -rf dist",
-    "build": "npm run clean && tsc",
+    "clean": "rm -rf dist/",
+    "build": "npm run clean && npm run compile",
+    "compile": "mkdir -p dist && cp server.js dist/ && cp package.json dist/",
     "start": "node ./dist/index.js",
     "dev": "npm run build && npm start",
     "watch": "tsc --watch",
@@ -15,7 +16,8 @@
     "test:coverage": "node --max_old_space_size=4096 node_modules/.bin/jest --coverage --runInBand",
     "test:debug": "node --max_old_space_size=4096 node_modules/.bin/jest --detectOpenHandles --runInBand",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.0.1",
@@ -36,5 +38,18 @@
     "jest": "^29.7.0",
     "ts-jest": "^29.1.2",
     "typescript": "^5.6.2"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/accesslabs/linear-mcp-server-oauth.git"
   }
 }
